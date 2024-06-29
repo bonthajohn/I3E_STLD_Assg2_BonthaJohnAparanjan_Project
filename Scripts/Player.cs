@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject TextImage;
 
+    public TextMeshProUGUI loseText;
+
+    [SerializeField] GameObject LoseTextImage;
+
     /// <summary>
     /// The player's current score.
     /// </summary>
@@ -60,6 +64,11 @@ public class Player : MonoBehaviour
     private CharacterController characterController;
 
     /// <summary>
+    /// Whether the player has collected the gun.
+    /// </summary>
+    bool hasCollectedGun = false;
+
+    /// <summary>
     /// Initializes the player.
     /// </summary>
     void Start()
@@ -76,14 +85,25 @@ public class Player : MonoBehaviour
         if (canScore)
         {
             currentScore += scoreToAdd;
-            scoreText.text = "Points:" + currentScore.ToString();
+            scoreText.text = "Points: " + currentScore.ToString();
 
             if (currentScore >= 200)
             {
                 currentScore = 200; // Cap the score at 200
                 canScore = false; // Disable further scoring
-                DisplayCongratsMessage();
+                CheckForCongrats();
             }
+        }
+    }
+
+    /// <summary>
+    /// Checks if both conditions are met to display the congratulatory message.
+    /// </summary>
+    void CheckForCongrats()
+    {
+        if (currentScore == 200 && hasCollectedGun)
+        {
+            DisplayCongratsMessage();
         }
     }
 
@@ -92,7 +112,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void DisplayCongratsMessage()
     {
-        Text.text = "Congratulations, you've completed the game!";
+        Text.text = "Congrats, you'll now get teleported to the next area of this planet to complete your mission!";
         TextImage.SetActive(true); // Show congratulatory message
     }
 
@@ -131,6 +151,15 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// Updates the gun collection status.
+    /// </summary>
+    public void CollectGun()
+    {
+        hasCollectedGun = true;
+        CheckForCongrats();
+    }
+
+    /// <summary>
     /// Displays a loss message when touching fire.
     /// </summary>
     /// <param name="other">The other collider involved in the collision.</param>
@@ -139,8 +168,8 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Fire"))
         {
             canScore = false;
-            Text.text = "You lost the game!";
-            TextImage.SetActive(true);
+            loseText.text = "You lost the game! You can either:";
+            LoseTextImage.SetActive(true);
         }
     }
 }
