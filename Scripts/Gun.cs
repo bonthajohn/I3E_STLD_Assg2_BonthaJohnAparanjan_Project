@@ -13,17 +13,13 @@ public class Gun : MonoBehaviour
     public float bulletSpeed;
     public float bulletUp;
 
-
     void Start()
     {
-        
         _input = GetComponentInParent<StarterAssetsInputs>();
-
     }
 
     void Update()
     {
-        
         if (_input != null && _input.shoot)
         {
             Shoot();
