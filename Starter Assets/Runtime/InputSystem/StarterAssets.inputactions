@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "ca7f346d-0fa5-417a-bdfa-c316ef9f4a35",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -236,6 +245,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7055667a-e939-48fe-944d-275668bdc08a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
