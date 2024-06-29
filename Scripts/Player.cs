@@ -45,16 +45,45 @@ public class Player : MonoBehaviour
     Collectible currentCollectible;
 
     /// <summary>
+    /// Whether the player can score.
+    /// </summary>
+    bool canScore = true;
+
+    /// <summary>
+    /// The speed of the player's movement.
+    /// </summary>
+    public float moveSpeed = 5f;
+
+    /// <summary>
+    /// The player's character controller.
+    /// </summary>
+    private CharacterController characterController;
+
+    /// <summary>
+    /// Initializes the player.
+    /// </summary>
+    void Start()
+    {
+        TextImage.SetActive(false);
+        characterController = GetComponent<CharacterController>();
+    }
+
+    /// <summary>
     /// Adds points to the player's score.
     /// </summary>
     public void IncreaseScore(int scoreToAdd)
     {
-        currentScore += scoreToAdd;
-        scoreText.text = "Points:" + currentScore.ToString();
-
-        if (currentScore >= 200)
+        if (canScore)
         {
-            DisplayCongratsMessage();
+            currentScore += scoreToAdd;
+            scoreText.text = "Points:" + currentScore.ToString();
+
+            if (currentScore >= 200)
+            {
+                currentScore = 200; // Cap the score at 200
+                canScore = false; // Disable further scoring
+                DisplayCongratsMessage();
+            }
         }
     }
 
@@ -102,10 +131,16 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// Hides the congratulatory message at the start.
+    /// Displays a loss message when touching fire.
     /// </summary>
-    void Start()
+    /// <param name="other">The other collider involved in the collision.</param>
+    void OnTriggerEnter(Collider other)
     {
-        TextImage.SetActive(false);
+        if (other.CompareTag("Fire"))
+        {
+            canScore = false;
+            Text.text = "You lost the game!";
+            TextImage.SetActive(true);
+        }
     }
 }
