@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject LoseTextImage;
 
     int currentScore = 0;
-    door currentDoor;
     Collectible currentCollectible;
     bool canScore = true;
     public float moveSpeed = 5f;
@@ -66,10 +65,7 @@ public class Player : MonoBehaviour
         TextImage.SetActive(true);
     }
 
-    public void UpdateDoor(door newDoor)
-    {
-        currentDoor = newDoor;
-    }
+    
 
     public void UpdateCollectible(Collectible newCollectible)
     {
@@ -78,11 +74,6 @@ public class Player : MonoBehaviour
 
     void OnInteract()
     {
-        if (currentDoor != null)
-        {
-            currentDoor.OpenDoor();
-            currentDoor = null;
-        }
 
         if (currentCollectible != null)
         {
