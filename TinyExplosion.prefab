@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1789835408117102246}
   - component: {fileID: 4468189847492840181}
   - component: {fileID: 470593624518049112}
-  - component: {fileID: 8399826764381405866}
+  - component: {fileID: 6571215542890174185}
   m_Layer: 0
   m_Name: TinyExplosion
   m_TagString: Bullet
@@ -4965,8 +4965,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
---- !u!65 &8399826764381405866
-BoxCollider:
+--- !u!135 &6571215542890174185
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4984,5 +4984,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8540516, y: 2.854052, z: 2.854052}
+  m_Radius: 1.427026
   m_Center: {x: 0, y: 0, z: 0}
