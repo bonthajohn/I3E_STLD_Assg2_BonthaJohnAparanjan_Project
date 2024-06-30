@@ -1,6 +1,6 @@
 /*
  * Author: Bontha John Aparanjan
- * Date: 17 May 2024
+ * Date: 30 June 2024
  * Description: This script handles collectible items in a game. 
  *              When collected by the player, it provides points and 
  *              destroys itself upon collection.

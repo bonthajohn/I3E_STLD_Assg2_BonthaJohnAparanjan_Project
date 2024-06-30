@@ -1,8 +1,17 @@
+/*
+ * Author: Bontha John Aparanjan
+ * Date: 30 June 2024
+ * Description: This script manages player interactions and gameplay mechanics in the game.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Manages player interactions and gameplay mechanics.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
@@ -18,7 +27,7 @@ public class Player : MonoBehaviour
     private CharacterController characterController;
     bool hasCollectedGun = false;
 
-    bool isNearCrystal = false; // Flag to track if player is near a crystal
+    bool isNearCrystal = false; 
 
     void Start()
     {
@@ -29,12 +38,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (isNearCrystal && Input.GetKeyDown(KeyCode.E)) // Check if player is near crystal and presses 'E'
+        if (isNearCrystal && Input.GetKeyDown(KeyCode.E)) 
         {
             DisplayCrystalMessage();
         }
     }
 
+    /// <summary>
+    /// Increases the player's score by the specified amount.
+    /// </summary>
+    /// <param name="scoreToAdd">The score to add.</param>
     public void IncreaseScore(int scoreToAdd)
     {
         if (canScore)
@@ -51,6 +64,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the player has earned enough points and collected the gun to display a congratulatory message.
+    /// </summary>
     void CheckForCongrats()
     {
         if (currentScore == 200 && hasCollectedGun)
@@ -59,22 +75,29 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Displays a congratulatory message when conditions are met.
+    /// </summary>
     void DisplayCongratsMessage()
     {
-        Text.text = "Congrats, you'll now get teleported to the next area of this planet to complete your mission!";
+        Text.text = "Congrats, you've earned enough coins to teleport to the next area of this planet to complete your mission!";
         TextImage.SetActive(true);
     }
 
-    
-
+    /// <summary>
+    /// Updates the current collectible item that the player can interact with.
+    /// </summary>
+    /// <param name="newCollectible">The new collectible item.</param>
     public void UpdateCollectible(Collectible newCollectible)
     {
         currentCollectible = newCollectible;
     }
 
+    /// <summary>
+    /// Handles interaction with the current collectible item.
+    /// </summary>
     void OnInteract()
     {
-
         if (currentCollectible != null)
         {
             IncreaseScore(currentCollectible.coin);
@@ -82,6 +105,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Marks that the player has collected the gun and checks for congratulatory message.
+    /// </summary>
     public void CollectGun()
     {
         hasCollectedGun = true;
@@ -100,9 +126,9 @@ public class Player : MonoBehaviour
         {
             DisplayLoseMessage();
         }
-        else if (other.CompareTag("Crystal")) // Check if the player touches a crystal
+        else if (other.CompareTag("Crystal")) 
         {
-            isNearCrystal = true; // Player is near a crystal
+            isNearCrystal = true; 
         }
     }
 
@@ -110,22 +136,28 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Crystal"))
         {
-            isNearCrystal = false; // Player is no longer near a crystal
+            isNearCrystal = false; 
         }
     }
 
+    /// <summary>
+    /// Displays a message indicating the player has lost the game.
+    /// </summary>
     void DisplayLoseMessage()
     {
         loseText.text = "You lost the game! You can either:";
         LoseTextImage.SetActive(true);
     }
 
+    /// <summary>
+    /// Displays a message indicating the player has collected a crystal.
+    /// </summary>
     void DisplayCrystalMessage()
     {
         Text.text = "You've collected the crystal, let's head back to your spaceship!";
         TextImage.SetActive(true);
 
-        // Destroy the crystal object
+        
         GameObject crystalObject = GameObject.FindGameObjectWithTag("Crystal");
         if (crystalObject != null)
         {
